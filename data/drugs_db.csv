@@ -1,0 +1,41 @@
+nom_molecule,dci,classe,sous_classe,niveau_controle,potentiel_abus,dose_max_jour_mg,dose_alerte_mg,ordonnance_securisee
+morphine,morphine,opioïde,opioïde fort,4,oui,120,200,oui
+oxycodone,oxycodone,opioïde,opioïde fort,4,oui,80,120,oui
+tramadol,tramadol,opioïde,opioïde faible,3,oui,400,600,non
+codeine,codéine,opioïde,opioïde faible,3,oui,240,360,non
+fentanyl,fentanyl,opioïde,opioïde fort,4,oui,200,300,oui
+buprenorphine,buprénorphine,opioïde,opioïde fort,4,oui,32,48,oui
+diazepam,diazépam,benzodiazépine,BZD longue durée,3,oui,40,60,non
+alprazolam,alprazolam,benzodiazépine,BZD courte durée,3,oui,4,6,non
+lorazepam,lorazépam,benzodiazépine,BZD courte durée,3,oui,10,15,non
+clonazepam,clonazépam,benzodiazépine,BZD antiépileptique,3,oui,20,30,non
+zolpidem,zolpidem,hypnotique,non-BZD,3,oui,10,20,non
+zopiclone,zopiclone,hypnotique,non-BZD,3,oui,7.5,15,non
+methylphenidate,méthylphénidate,psychostimulant,TDAH,4,oui,60,80,oui
+pregabalin,prégabaline,antiépileptique,gabapentinoïde,3,oui,600,900,non
+gabapentin,gabapentine,antiépileptique,gabapentinoïde,2,oui,3600,4800,non
+ketamine,kétamine,anesthésique,NMDA antagoniste,4,oui,500,800,oui
+methadone,méthadone,opioïde,traitement substitution,4,oui,100,150,oui
+oxazepam,oxazépam,benzodiazépine,BZD courte durée,3,oui,120,180,non
+clorazepate,clorazépate,benzodiazépine,BZD longue durée,3,oui,150,200,non
+bromazepam,bromazépam,benzodiazépine,BZD courte durée,3,oui,18,24,non
+paracetamol,paracétamol,antalgique,palier 1,1,non,4000,6000,non
+ibuprofene,ibuprofène,AINS,anti-inflammatoire,1,non,2400,3200,non
+amoxicilline,amoxicilline,antibiotique,pénicilline,1,non,3000,4500,non
+metformine,metformine,antidiabétique,biguanide,1,non,3000,4000,non
+amlodipine,amlodipine,antihypertenseur,inhibiteur calcique,1,non,10,15,non
+atorvastatine,atorvastatine,hypolipémiant,statine,1,non,80,80,non
+levothyroxine,lévothyroxine,hormone thyroïdienne,hormone,1,non,300,400,non
+omeprazole,oméprazole,IPP,inhibiteur pompe,1,non,80,120,non
+sertraline,sertraline,antidépresseur,ISRS,2,non,200,300,non
+escitalopram,escitalopram,antidépresseur,ISRS,2,non,20,40,non
+venlafaxine,venlafaxine,antidépresseur,IRSNA,2,non,375,450,non
+quetiapine,quétiapine,antipsychotique,atypique,2,non,800,1200,non
+olanzapine,olanzapine,antipsychotique,atypique,2,non,20,30,non
+risperidone,rispéridone,antipsychotique,atypique,2,non,16,20,non
+lithium,lithium,thymorégulateur,sel de lithium,2,non,2400,3000,non
+valproate,valproate,antiépileptique,acide valproïque,2,non,3000,4000,non
+warfarine,warfarine,anticoagulant,AVK,2,non,15,20,non
+dabigatran,dabigatran,anticoagulant,AOD,2,non,300,450,non
+rivaroxaban,rivaroxaban,anticoagulant,AOD,2,non,40,60,non
+insuline,insuline,antidiabétique,hormone,1,non,100,200,non

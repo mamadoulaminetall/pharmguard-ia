@@ -1,0 +1,29 @@
+patient_id,nom,prenom,date_naissance,date_dispensation,molecule,dose_mg,quantite_boites,prescripteur_nom,prescripteur_rpps,prescripteur_specialite,pharmacie_id,notes
+P001,MARTIN,Jean,1965-03-12,2026-04-01,tramadol,200,2,Dr. Dupont,12345678,médecine générale,PH01,
+P001,MARTIN,Jean,1965-03-12,2026-03-18,tramadol,200,2,Dr. Dupont,12345678,médecine générale,PH01,
+P001,MARTIN,Jean,1965-03-12,2026-03-01,tramadol,200,2,Dr. Bernard,87654321,médecine générale,PH02,prescripteur différent
+P001,MARTIN,Jean,1965-03-12,2026-02-10,codeine,240,1,Dr. Dupont,12345678,médecine générale,PH01,
+P002,DUBOIS,Marie,1978-07-24,2026-04-05,diazepam,20,2,Dr. Moreau,11223344,psychiatrie,PH01,
+P002,DUBOIS,Marie,1978-07-24,2026-03-20,alprazolam,2,1,Dr. Lefebvre,44332211,médecine générale,PH03,double prescription BZD
+P002,DUBOIS,Marie,1978-07-24,2026-03-10,zolpidem,10,1,Dr. Moreau,11223344,psychiatrie,PH01,
+P003,PETIT,Paul,1955-11-08,2026-04-10,morphine,60,2,Dr. Blanc,99887766,oncologie,PH01,cancer confirmé
+P003,PETIT,Paul,1955-11-08,2026-03-25,morphine,60,2,Dr. Blanc,99887766,oncologie,PH01,
+P003,PETIT,Paul,1955-11-08,2026-03-10,morphine,60,2,Dr. Blanc,99887766,oncologie,PH01,
+P004,ROUX,Sophie,1990-05-15,2026-04-08,alprazolam,4,3,Dr. Dupont,12345678,médecine générale,PH01,dose élevée
+P004,ROUX,Sophie,1990-05-15,2026-03-22,alprazolam,4,3,Dr. Simon,55667788,médecine générale,PH04,pharmacie différente
+P004,ROUX,Sophie,1990-05-15,2026-03-08,lorazepam,5,2,Dr. Dupont,12345678,médecine générale,PH01,BZD différente même période
+P005,BERNARD,Thomas,1982-09-30,2026-04-12,pregabalin,450,2,Dr. Girard,22334455,neurologie,PH01,
+P005,BERNARD,Thomas,1982-09-30,2026-04-02,pregabalin,450,2,Dr. Dupont,12345678,médecine générale,PH02,
+P005,BERNARD,Thomas,1982-09-30,2026-03-15,tramadol,300,1,Dr. Girard,22334455,neurologie,PH01,
+P006,LEROY,Anne,1972-01-19,2026-04-15,metformine,2000,3,Dr. Dupont,12345678,médecine générale,PH01,
+P006,LEROY,Anne,1972-01-19,2026-03-20,amlodipine,10,1,Dr. Dupont,12345678,médecine générale,PH01,
+P006,LEROY,Anne,1972-01-19,2026-02-18,sertraline,100,1,Dr. Moreau,11223344,psychiatrie,PH01,
+P007,GARCIA,Luis,1988-04-22,2026-04-14,methylphenidate,40,2,Dr. Blanc,99887766,pédiatrie,PH01,adulte prescrit en pédiatrie
+P007,GARCIA,Luis,1988-04-22,2026-03-28,methylphenidate,40,2,Dr. Dupont,12345678,médecine générale,PH01,
+P008,SIMON,Claire,1995-12-03,2026-04-11,oxycodone,40,2,Dr. Lefebvre,44332211,médecine générale,PH01,MG prescrivant opioïde fort
+P008,SIMON,Claire,1995-12-03,2026-03-25,oxycodone,40,2,Dr. Dupont,12345678,médecine générale,PH02,
+P008,SIMON,Claire,1995-12-03,2026-03-10,tramadol,400,2,Dr. Bernard,87654321,médecine générale,PH01,escalade opioïdes
+P009,NGUYEN,Van,1960-08-17,2026-04-13,warfarine,7.5,3,Dr. Dupont,12345678,médecine générale,PH01,
+P009,NGUYEN,Van,1960-08-17,2026-03-25,ibuprofene,1200,2,Dr. Simon,55667788,médecine générale,PH01,interaction warfarine+AINS
+P010,LAURENT,Emma,2000-02-28,2026-04-16,paracetamol,3000,2,Dr. Dupont,12345678,médecine générale,PH01,
+P010,LAURENT,Emma,2000-02-28,2026-03-30,amoxicilline,3000,1,Dr. Dupont,12345678,médecine générale,PH01,
