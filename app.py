@@ -23,7 +23,12 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY", st.secrets.get("ANTHROPIC_API_KEY", "")))
+def _get_api_key():
+    if "ANTHROPIC_API_KEY" in st.secrets:
+        return st.secrets["ANTHROPIC_API_KEY"]
+    return os.getenv("ANTHROPIC_API_KEY", "")
+
+client = anthropic.Anthropic(api_key=_get_api_key())
 
 # ─────────────────────────────────────────────────────────────────
 # DATA
