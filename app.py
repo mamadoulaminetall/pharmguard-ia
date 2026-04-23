@@ -704,19 +704,27 @@ with col_result:
         if not meds_clean:
             st.error("Ajoutez au moins un médicament.")
         else:
-            with st.spinner(""):
-                thinking_ph.markdown('<div class="thinking-box"><div class="thinking-step active">🤖 Agent PharmGuard IA démarré...</div></div>', unsafe_allow_html=True)
+            api_key = _get_api_key()
+            if not api_key:
+                st.error("❌ Clé API Anthropic manquante. Ajoutez ANTHROPIC_API_KEY dans les secrets Streamlit.")
+            else:
+                try:
+                    with st.spinner(""):
+                        thinking_ph.markdown('<div class="thinking-box"><div class="thinking-step active">🤖 Agent PharmGuard IA démarré...</div></div>', unsafe_allow_html=True)
 
-                result = analyze_prescription(
-                    patient_info={"nom": patient_nom, "prenom": patient_prenom, "ddn": patient_ddn},
-                    medicaments=meds_clean,
-                    prescripteur={"nom": presc_nom, "specialite": presc_spec},
-                    thinking_placeholder=thinking_ph
-                )
-                st.session_state.result = result
+                        result = analyze_prescription(
+                            patient_info={"nom": patient_nom, "prenom": patient_prenom, "ddn": patient_ddn},
+                            medicaments=meds_clean,
+                            prescripteur={"nom": presc_nom, "specialite": presc_spec},
+                            thinking_placeholder=thinking_ph
+                        )
+                        st.session_state.result = result
 
-            thinking_ph.empty()
-            st.rerun()
+                    thinking_ph.empty()
+                    st.rerun()
+                except Exception as e:
+                    thinking_ph.empty()
+                    st.error(f"❌ Erreur : {str(e)}")
 
     if "result" in st.session_state:
         r = st.session_state.result
