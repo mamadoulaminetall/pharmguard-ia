@@ -114,7 +114,7 @@ HISTORY   = load_history()
 # ─────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 * { box-sizing: border-box; margin: 0; padding: 0; }
 [data-testid="stAppViewContainer"] { background: #020c1e; }
 [data-testid="stSidebar"], [data-testid="collapsedControl"] { display: none; }
@@ -127,126 +127,44 @@ iframe[height="0"] { display: none !important; }
 /* ── HEADER ── */
 .pg-header {
     background: linear-gradient(160deg, #020c1e 0%, #040f1e 100%);
-    border-bottom: 1px solid rgba(239,68,68,0.15);
-    padding: 16px 56px;
+    border-bottom: 1px solid rgba(239,68,68,0.2);
+    padding: 20px 48px;
     display: flex; align-items: center; justify-content: space-between;
 }
 .pg-logo { display: flex; align-items: center; gap: 14px; }
 .pg-logo-icon {
-    width: 44px; height: 44px; border-radius: 10px;
-    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    width: 48px; height: 48px; border-radius: 12px;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    box-shadow: 0 0 20px rgba(239,68,68,0.35);
+    font-size: 22px;
+    box-shadow: 0 0 24px rgba(239,68,68,0.4);
 }
-.pg-logo-title { font-size: 1.25rem; font-weight: 800; color: #f1f5f9; letter-spacing: -0.5px; }
-.pg-logo-sub { font-size: 0.68rem; color: #ef4444; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-top: 1px; }
-.pg-header-right { display: flex; align-items: center; gap: 12px; }
-.pg-doi-badge {
-    background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
-    color: #a5b4fc; border-radius: 100px; padding: 5px 14px;
-    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.5px;
-    text-decoration: none; display: flex; align-items: center; gap: 6px;
-}
-.pg-doi-badge:hover { background: rgba(99,102,241,0.2); }
+.pg-logo-title { font-size: 1.4rem; font-weight: 800; color: #f1f5f9; letter-spacing: -0.5px; }
+.pg-logo-sub { font-size: 0.72rem; color: #ef4444; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
 .pg-badge {
     background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
-    color: #ef4444; border-radius: 100px; padding: 5px 14px;
-    font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px;
+    color: #ef4444; border-radius: 100px; padding: 6px 16px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px;
 }
-
-/* ── HERO ── */
-.pg-hero {
-    background: linear-gradient(180deg, #030d1f 0%, #020c1e 100%);
-    padding: 64px 56px 56px;
-    position: relative; overflow: hidden;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.pg-hero::before {
-    content: '';
-    position: absolute; top: -120px; right: -100px;
-    width: 500px; height: 500px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(239,68,68,0.06) 0%, transparent 70%);
-    pointer-events: none;
-}
-.pg-hero::after {
-    content: '';
-    position: absolute; bottom: -80px; left: 10%;
-    width: 300px; height: 300px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 70%);
-    pointer-events: none;
-}
-.pg-hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2);
-    border-radius: 100px; padding: 6px 16px;
-    font-size: 0.72rem; font-weight: 700; color: #f87171;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    margin-bottom: 24px;
-}
-.pg-hero-title {
-    font-size: 3rem; font-weight: 900; color: #f1f5f9;
-    line-height: 1.1; letter-spacing: -1.5px;
-    max-width: 680px; margin-bottom: 20px;
-}
-.pg-hero-title span { color: #ef4444; }
-.pg-hero-subtitle {
-    font-size: 1.05rem; color: #64748b; font-weight: 400;
-    max-width: 580px; line-height: 1.7; margin-bottom: 40px;
-}
-.pg-hero-stats {
-    display: flex; gap: 40px; flex-wrap: wrap;
-}
-.pg-stat {
-    display: flex; flex-direction: column; gap: 4px;
-}
-.pg-stat-value {
-    font-size: 2rem; font-weight: 900; color: #f1f5f9;
-    letter-spacing: -1px; line-height: 1;
-}
-.pg-stat-label {
-    font-size: 0.72rem; color: #475569; font-weight: 500; letter-spacing: 0.5px;
-}
-
-/* ── FEATURES STRIP ── */
-.pg-features {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 1px; background: rgba(255,255,255,0.05);
-    border-top: 1px solid rgba(255,255,255,0.05);
-}
-.pg-feature {
-    background: #020c1e; padding: 24px 28px;
-    display: flex; align-items: flex-start; gap: 14px;
-    transition: background 0.2s;
-}
-.pg-feature:hover { background: #030e1f; }
-.pg-feature-icon {
-    width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-}
-.pg-feature-body {}
-.pg-feature-title { font-size: 0.85rem; font-weight: 700; color: #e2e8f0; margin-bottom: 4px; }
-.pg-feature-desc { font-size: 0.75rem; color: #475569; line-height: 1.5; }
 
 /* ── MAIN LAYOUT ── */
-.pg-main { padding: 36px 56px; }
+.pg-main { padding: 32px 48px; }
 .pg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .pg-card {
-    background: #060f20; border: 1px solid rgba(255,255,255,0.06);
+    background: #0a1628; border: 1px solid rgba(255,255,255,0.07);
     border-radius: 16px; padding: 28px;
 }
 .pg-card-title {
-    font-size: 0.72rem; font-weight: 700; color: #475569;
+    font-size: 0.78rem; font-weight: 700; color: #64748b;
     letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
     display: flex; align-items: center; gap: 8px;
 }
 
 /* ── OCR UPLOAD ── */
 .ocr-zone {
-    border: 2px dashed rgba(239,68,68,0.3);
+    border: 2px dashed rgba(239,68,68,0.35);
     border-radius: 12px; padding: 16px 20px;
-    background: rgba(239,68,68,0.03);
+    background: rgba(239,68,68,0.04);
     margin-bottom: 16px; text-align: center;
 }
 .ocr-zone-label {
@@ -254,17 +172,20 @@ iframe[height="0"] { display: none !important; }
     margin-bottom: 6px;
 }
 .ocr-success {
-    background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25);
+    background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3);
     border-radius: 10px; padding: 10px 14px; margin-bottom: 12px;
     font-size: 0.82rem; color: #34d399; font-weight: 600;
 }
 
 /* ── FORM ── */
+.pg-input-label {
+    font-size: 0.8rem; font-weight: 600; color: #94a3b8; margin-bottom: 6px;
+}
 .stTextInput > div > div > input,
 .stSelectbox > div > div > div,
 .stDateInput > div > div > input {
-    background: #030b1a !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: #060e1e !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
     border-radius: 10px !important;
     color: #f1f5f9 !important;
     font-family: 'Inter', sans-serif !important;
@@ -272,34 +193,33 @@ iframe[height="0"] { display: none !important; }
 .stTextInput > div > div > input:focus,
 .stSelectbox > div > div > div:focus {
     border-color: rgba(239,68,68,0.4) !important;
-    box-shadow: 0 0 0 3px rgba(239,68,68,0.08) !important;
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.1) !important;
 }
 .stButton > button {
-    background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
     color: white !important; border: none !important;
     border-radius: 12px !important; padding: 14px 32px !important;
     font-weight: 700 !important; font-size: 0.9rem !important;
     width: 100% !important; cursor: pointer !important;
-    box-shadow: 0 4px 20px rgba(239,68,68,0.25) !important;
+    box-shadow: 0 4px 24px rgba(239,68,68,0.3) !important;
     transition: all 0.2s !important;
-    letter-spacing: 0.3px !important;
 }
 .stButton > button:hover {
     transform: translateY(-1px) !important;
-    box-shadow: 0 8px 28px rgba(239,68,68,0.4) !important;
+    box-shadow: 0 8px 32px rgba(239,68,68,0.45) !important;
 }
 
 /* ── SCORE GAUGE ── */
 .score-gauge {
-    text-align: center; padding: 36px 24px;
-    background: #030b1a; border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.05);
+    text-align: center; padding: 32px 24px;
+    background: #060e1e; border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
     margin-bottom: 20px;
 }
-.score-number { font-size: 4.5rem; font-weight: 900; line-height: 1; letter-spacing: -2px; }
-.score-label { font-size: 0.8rem; color: #475569; margin-top: 8px; letter-spacing: 1px; text-transform: uppercase; }
+.score-number { font-size: 4rem; font-weight: 900; line-height: 1; }
+.score-label { font-size: 0.85rem; color: #64748b; margin-top: 8px; }
 .score-verdict {
-    font-size: 1rem; font-weight: 700; margin-top: 16px;
+    font-size: 1.1rem; font-weight: 700; margin-top: 16px;
     padding: 10px 24px; border-radius: 100px; display: inline-block;
 }
 
@@ -312,21 +232,32 @@ iframe[height="0"] { display: none !important; }
 .flag-text { font-size: 0.82rem; color: #cbd5e1; line-height: 1.5; }
 .flag-title { font-weight: 700; margin-bottom: 2px; }
 
+/* ── HISTORY TABLE ── */
+.hist-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 14px; border-radius: 8px; margin-bottom: 6px;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.78rem;
+}
+.hist-drug { color: #f1f5f9; font-weight: 600; }
+.hist-date { color: #64748b; }
+.hist-dose { color: #94a3b8; }
+
 /* ── THINKING ── */
 .thinking-box {
-    background: rgba(6,182,212,0.04); border: 1px solid rgba(6,182,212,0.12);
+    background: rgba(6,182,212,0.05); border: 1px solid rgba(6,182,212,0.15);
     border-radius: 12px; padding: 16px 20px; margin-bottom: 16px;
 }
 .thinking-step {
-    font-size: 0.78rem; color: #475569; font-family: monospace;
-    padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 0.78rem; color: #64748b; font-family: monospace;
+    padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 .thinking-step:last-child { border-bottom: none; }
 .thinking-step.active { color: #06b6d4; }
 
 /* ── AGENT REPORT ── */
 .report-box {
-    background: #030b1a; border: 1px solid rgba(255,255,255,0.06);
+    background: #060e1e; border: 1px solid rgba(255,255,255,0.07);
     border-radius: 14px; padding: 24px; font-size: 0.85rem;
     color: #94a3b8; line-height: 1.8;
 }
@@ -339,35 +270,18 @@ iframe[height="0"] { display: none !important; }
     padding: 4px 12px; border-radius: 100px; margin: 3px;
     font-size: 0.75rem; font-weight: 600;
 }
-.drug-high  { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.35); color: #f87171; }
-.drug-med   { background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.35); color: #fb923c; }
-.drug-low   { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); color: #34d399; }
+.drug-high  { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4); color: #f87171; }
+.drug-med   { background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.4); color: #fb923c; }
+.drug-low   { background: rgba(16,185,129,0.1);  border: 1px solid rgba(16,185,129,0.3); color: #34d399; }
 
 /* ── DEMO BANNER ── */
 .demo-banner {
-    background: rgba(245,158,11,0.06);
-    border: 1px solid rgba(245,158,11,0.2);
-    border-radius: 10px; padding: 11px 20px;
-    font-size: 0.78rem; color: #fbbf24;
-    margin-bottom: 28px; text-align: center; letter-spacing: 0.3px;
+    background: linear-gradient(90deg, rgba(249,115,22,0.1), rgba(239,68,68,0.1));
+    border: 1px solid rgba(249,115,22,0.3);
+    border-radius: 10px; padding: 12px 20px;
+    font-size: 0.8rem; color: #fb923c;
+    margin-bottom: 24px; text-align: center;
 }
-
-/* ── FOOTER ── */
-.pg-footer {
-    border-top: 1px solid rgba(255,255,255,0.05);
-    padding: 28px 56px;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 16px;
-}
-.pg-footer-left { font-size: 0.72rem; color: #334155; }
-.pg-footer-left strong { color: #475569; }
-.pg-footer-doi {
-    display: flex; align-items: center; gap: 8px;
-    background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.2);
-    border-radius: 8px; padding: 8px 16px;
-}
-.pg-footer-doi-label { font-size: 0.65rem; font-weight: 700; color: #6366f1; letter-spacing: 1.5px; text-transform: uppercase; }
-.pg-footer-doi-value { font-size: 0.72rem; color: #a5b4fc; font-family: monospace; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -719,88 +633,17 @@ def flag_style(niveau: str) -> tuple:
 # UI
 # ─────────────────────────────────────────────────────────────────
 
-# ── HEADER ──
+# Header
 st.markdown("""
 <div class="pg-header">
   <div class="pg-logo">
     <div class="pg-logo-icon">🛡️</div>
     <div>
       <div class="pg-logo-title">PharmGuard IA</div>
-      <div class="pg-logo-sub">Agent IA · Pharmacovigilance · MedFlow AI</div>
+      <div class="pg-logo-sub">Détection ordonnances · Agent IA · MedFlow AI</div>
     </div>
   </div>
-  <div class="pg-header-right">
-    <a class="pg-doi-badge" href="https://doi.org/10.64898/2026.04.19.719461" target="_blank">
-      📄 Publication · bioRxiv 2026
-    </a>
-    <div class="pg-badge">⚡ DÉMO · v1.0</div>
-  </div>
-</div>
-""", unsafe_allow_html=True)
-
-# ── HERO ──
-st.markdown("""
-<div class="pg-hero">
-  <div class="pg-hero-eyebrow">
-    🛡️ &nbsp;Intelligence Artificielle · Pharmacovigilance
-  </div>
-  <div class="pg-hero-title">
-    Détectez les ordonnances<br>à risque <span>en secondes</span>
-  </div>
-  <div class="pg-hero-subtitle">
-    PharmGuard IA analyse chaque ordonnance grâce à un agent IA multi-outils :
-    classification médicamenteuse, historique patient, interactions dangereuses
-    et cohérence prescripteur — en temps réel, pour chaque dispensation.
-  </div>
-  <div class="pg-hero-stats">
-    <div class="pg-stat">
-      <div class="pg-stat-value">50+</div>
-      <div class="pg-stat-label">Molécules contrôlées</div>
-    </div>
-    <div class="pg-stat">
-      <div class="pg-stat-value">4</div>
-      <div class="pg-stat-label">Outils d'analyse IA</div>
-    </div>
-    <div class="pg-stat">
-      <div class="pg-stat-value">90j</div>
-      <div class="pg-stat-label">Historique patient</div>
-    </div>
-    <div class="pg-stat">
-      <div class="pg-stat-value">&lt;30s</div>
-      <div class="pg-stat-label">Temps d'analyse</div>
-    </div>
-  </div>
-</div>
-
-<div class="pg-features">
-  <div class="pg-feature">
-    <div class="pg-feature-icon" style="background:rgba(239,68,68,0.1)">💊</div>
-    <div class="pg-feature-body">
-      <div class="pg-feature-title">Classification médicamenteuse</div>
-      <div class="pg-feature-desc">Niveau de contrôle 1–4, potentiel d'abus, dose maximale journalière</div>
-    </div>
-  </div>
-  <div class="pg-feature">
-    <div class="pg-feature-icon" style="background:rgba(99,102,241,0.1)">👤</div>
-    <div class="pg-feature-body">
-      <div class="pg-feature-title">Historique & Doctor Shopping</div>
-      <div class="pg-feature-desc">Multi-prescripteurs, multi-pharmacies, fréquence de dispensation sur 90 jours</div>
-    </div>
-  </div>
-  <div class="pg-feature">
-    <div class="pg-feature-icon" style="background:rgba(245,158,11,0.1)">⚠️</div>
-    <div class="pg-feature-body">
-      <div class="pg-feature-title">Interactions médicamenteuses</div>
-      <div class="pg-feature-desc">17 paires critiques détectées — opioïdes/BZD, AVK/AINS, sérotoninergiques</div>
-    </div>
-  </div>
-  <div class="pg-feature">
-    <div class="pg-feature-icon" style="background:rgba(16,185,129,0.1)">🏥</div>
-    <div class="pg-feature-body">
-      <div class="pg-feature-title">Cohérence prescripteur</div>
-      <div class="pg-feature-desc">Spécialité vs médicaments prescrits — hors spécialité, BZD multiples</div>
-    </div>
-  </div>
+  <div class="pg-badge">⚡ DÉMO · v1.0</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1066,16 +909,8 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
-<div class="pg-footer">
-  <div class="pg-footer-left">
-    <strong>PharmGuard IA</strong> · MedFlow AI · Dr. Mamadou Lamine TALL, PhD<br>
-    Outil d'aide à la décision — ne remplace pas le jugement professionnel du pharmacien
-  </div>
-  <div class="pg-footer-doi">
-    <div>
-      <div class="pg-footer-doi-label">Publication · bioRxiv</div>
-      <div class="pg-footer-doi-value">doi.org/10.64898/2026.04.19.719461</div>
-    </div>
-  </div>
+<div style="text-align:center;padding:24px;border-top:1px solid rgba(255,255,255,0.05);
+     margin-top:16px;font-size:0.72rem;color:#334155">
+  PharmGuard IA · MedFlow AI · Dr. M.L. TALL · Outil d'aide à la décision — Ne remplace pas le jugement professionnel
 </div>
 """, unsafe_allow_html=True)
