@@ -8,6 +8,7 @@ import anthropic
 import pandas as pd
 import json
 import os
+import base64
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
@@ -29,6 +30,46 @@ def _get_api_key():
     return os.getenv("ANTHROPIC_API_KEY", "")
 
 client = anthropic.Anthropic(api_key=_get_api_key())
+
+# ─────────────────────────────────────────────────────────────────
+# OCR ORDONNANCE
+# ─────────────────────────────────────────────────────────────────
+def extract_prescription_from_image(image_bytes: bytes, media_type: str) -> dict:
+    """Envoie l'image à Claude Vision et extrait les données de l'ordonnance."""
+    image_b64 = base64.standard_b64encode(image_bytes).decode("utf-8")
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=1024,
+        messages=[{
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {"type": "base64", "media_type": media_type, "data": image_b64}
+                },
+                {
+                    "type": "text",
+                    "text": """Extrait les informations de cette ordonnance médicale française.
+Réponds UNIQUEMENT en JSON strict, sans texte autour :
+{
+  "patient_nom": "NOM en majuscules ou vide",
+  "patient_prenom": "Prénom ou vide",
+  "patient_ddn": "JJ/MM/AAAA ou vide",
+  "prescripteur_nom": "Dr. Nom ou vide",
+  "prescripteur_specialite": "médecine générale|psychiatrie|neurologie|oncologie|addictologie|anesthésie|soins palliatifs|douleur|pédiatrie|cardiologie|endocrinologie|autre",
+  "medicaments": [
+    {"nom": "nom_molecule_en_minuscules", "dose": "valeur_numerique_mg_seulement", "quantite": "nombre_boites"}
+  ]
+}
+Si une information est illisible ou absente, laisse le champ vide. Pour la spécialité, déduis-la du titre du médecin si possible."""
+                }
+            ]
+        }]
+    )
+    text = response.content[0].text.strip()
+    start = text.find("{")
+    end = text.rfind("}") + 1
+    return json.loads(text[start:end])
 
 # ─────────────────────────────────────────────────────────────────
 # DATA
@@ -95,6 +136,23 @@ iframe[height="0"] { display: none !important; }
     font-size: 0.78rem; font-weight: 700; color: #64748b;
     letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
     display: flex; align-items: center; gap: 8px;
+}
+
+/* ── OCR UPLOAD ── */
+.ocr-zone {
+    border: 2px dashed rgba(239,68,68,0.35);
+    border-radius: 12px; padding: 16px 20px;
+    background: rgba(239,68,68,0.04);
+    margin-bottom: 16px; text-align: center;
+}
+.ocr-zone-label {
+    font-size: 0.82rem; font-weight: 600; color: #94a3b8;
+    margin-bottom: 6px;
+}
+.ocr-success {
+    background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 10px; padding: 10px 14px; margin-bottom: 12px;
+    font-size: 0.82rem; color: #34d399; font-weight: 600;
 }
 
 /* ── FORM ── */
@@ -582,14 +640,46 @@ with col_form:
     st.markdown('<div class="pg-card">', unsafe_allow_html=True)
     st.markdown('<div class="pg-card-title">📋 Saisie de l\'ordonnance</div>', unsafe_allow_html=True)
 
+    # ── OCR UPLOAD ──
+    st.markdown('<div class="ocr-zone">', unsafe_allow_html=True)
+    st.markdown('<div class="ocr-zone-label">📷 Photo / scan de l\'ordonnance — remplissage automatique</div>', unsafe_allow_html=True)
+    uploaded = st.file_uploader("", type=["jpg", "jpeg", "png", "webp", "pdf"], key="ocr_upload", label_visibility="collapsed")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    if uploaded is not None and st.session_state.get("ocr_last") != uploaded.name:
+        with st.spinner("🔍 Lecture de l'ordonnance..."):
+            try:
+                mime_map = {"jpg": "image/jpeg", "jpeg": "image/jpeg", "png": "image/png", "webp": "image/webp", "pdf": "image/jpeg"}
+                ext = uploaded.name.rsplit(".", 1)[-1].lower()
+                media_type = mime_map.get(ext, "image/jpeg")
+                extracted = extract_prescription_from_image(uploaded.read(), media_type)
+                st.session_state["ocr_extracted"] = extracted
+                st.session_state["ocr_last"] = uploaded.name
+                # Pré-remplir les médicaments
+                if extracted.get("medicaments"):
+                    st.session_state.meds = [
+                        {"nom": m.get("nom", ""), "dose": str(m.get("dose", "")), "quantite": str(m.get("quantite", "1"))}
+                        for m in extracted["medicaments"]
+                    ]
+                st.rerun()
+            except Exception as e:
+                st.error(f"❌ Erreur OCR : {e}")
+
+    if "ocr_extracted" in st.session_state:
+        d = st.session_state["ocr_extracted"]
+        st.markdown('<div class="ocr-success">✅ Ordonnance lue — vérifiez et corrigez si besoin</div>', unsafe_allow_html=True)
+
+    # Patient defaults from OCR or manual
+    _ocr = st.session_state.get("ocr_extracted", {})
+
     # Patient
     st.markdown("**Patient**")
     c1, c2 = st.columns(2)
     with c1:
-        patient_nom = st.text_input("Nom", value="ROUX", key="p_nom", label_visibility="collapsed", placeholder="Nom de famille")
+        patient_nom = st.text_input("Nom", value=_ocr.get("patient_nom", "ROUX"), key="p_nom", label_visibility="collapsed", placeholder="Nom de famille")
     with c2:
-        patient_prenom = st.text_input("Prénom", value="Sophie", key="p_prenom", label_visibility="collapsed", placeholder="Prénom")
-    patient_ddn = st.text_input("Date de naissance", value="15/05/1990", key="p_ddn", placeholder="JJ/MM/AAAA")
+        patient_prenom = st.text_input("Prénom", value=_ocr.get("patient_prenom", "Sophie"), key="p_prenom", label_visibility="collapsed", placeholder="Prénom")
+    patient_ddn = st.text_input("Date de naissance", value=_ocr.get("patient_ddn", "15/05/1990"), key="p_ddn", placeholder="JJ/MM/AAAA")
 
     st.divider()
 
@@ -597,13 +687,14 @@ with col_form:
     st.markdown("**Prescripteur**")
     c3, c4 = st.columns(2)
     with c3:
-        presc_nom = st.text_input("Nom prescripteur", value="Dr. Dupont", key="pr_nom", label_visibility="collapsed", placeholder="Dr. Nom")
+        presc_nom = st.text_input("Nom prescripteur", value=_ocr.get("prescripteur_nom", "Dr. Dupont"), key="pr_nom", label_visibility="collapsed", placeholder="Dr. Nom")
     with c4:
-        presc_spec = st.selectbox("Spécialité", [
-            "médecine générale", "psychiatrie", "neurologie", "oncologie",
-            "addictologie", "anesthésie", "soins palliatifs", "douleur",
-            "pédiatrie", "cardiologie", "endocrinologie", "autre"
-        ], key="pr_spec", label_visibility="collapsed")
+        _specs = ["médecine générale", "psychiatrie", "neurologie", "oncologie",
+                  "addictologie", "anesthésie", "soins palliatifs", "douleur",
+                  "pédiatrie", "cardiologie", "endocrinologie", "autre"]
+        _ocr_spec = _ocr.get("prescripteur_specialite", "médecine générale")
+        _spec_idx = _specs.index(_ocr_spec) if _ocr_spec in _specs else 0
+        presc_spec = st.selectbox("Spécialité", _specs, index=_spec_idx, key="pr_spec", label_visibility="collapsed")
 
     st.divider()
 
