@@ -9,6 +9,7 @@ import pandas as pd
 import json
 import os
 import base64
+import io
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
@@ -34,8 +35,29 @@ client = anthropic.Anthropic(api_key=_get_api_key())
 # ─────────────────────────────────────────────────────────────────
 # OCR ORDONNANCE
 # ─────────────────────────────────────────────────────────────────
+def _compress_image(image_bytes: bytes, max_bytes: int = 3_500_000) -> tuple[bytes, str]:
+    """Redimensionne l'image si elle dépasse max_bytes, retourne (bytes, media_type)."""
+    try:
+        from PIL import Image
+        img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+        quality = 85
+        while True:
+            buf = io.BytesIO()
+            img.save(buf, format="JPEG", quality=quality)
+            data = buf.getvalue()
+            if len(data) <= max_bytes or quality < 30:
+                return data, "image/jpeg"
+            # Réduire la résolution de 20%
+            w, h = img.size
+            img = img.resize((int(w * 0.8), int(h * 0.8)), Image.LANCZOS)
+            quality = max(quality - 10, 30)
+    except ImportError:
+        return image_bytes, "image/jpeg"
+
+
 def extract_prescription_from_image(image_bytes: bytes, media_type: str) -> dict:
     """Envoie l'image à Claude Vision et extrait les données de l'ordonnance."""
+    image_bytes, media_type = _compress_image(image_bytes)
     image_b64 = base64.standard_b64encode(image_bytes).decode("utf-8")
     response = client.messages.create(
         model="claude-sonnet-4-6",
